@@ -7,7 +7,6 @@ const INITIAL_STATE = {
 const loginReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
   case REQUEST_TOKEN:
-    console.log(action.token);
     return {
       ...state,
       token: action.token,

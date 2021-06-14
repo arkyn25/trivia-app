@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 import fetchToken from '../services/index';
 import { loginAction } from '../actions';
 
@@ -11,6 +11,7 @@ class Login extends React.Component {
     this.state = {
       name: '',
       email: '',
+      redirect: false,
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -34,10 +35,12 @@ class Login extends React.Component {
     localStorage.setItem('token', token.token);
     /* const localToken = localStorage.getItem('token'); */
     dispatchToken(token.token);
+    this.setState({ redirect: true });
   }
 
   render() {
-    const { name, email } = this.state;
+    const { name, email, redirect } = this.state;
+    if (redirect) return <Redirect to="/game" />;
     return (
       <div>
         <form>
@@ -55,16 +58,14 @@ class Login extends React.Component {
             placeholder="Seu Email"
             onChange={ this.handleChange }
           />
-          <Link to="/game">
-            <button
-              type="button"
-              data-testid="btn-play"
-              disabled={ this.verifyGameLogin() }
-              onClick={ this.handleClick }
-            >
-              Jogar
-            </button>
-          </Link>
+          <button
+            type="button"
+            data-testid="btn-play"
+            disabled={ this.verifyGameLogin() }
+            onClick={ this.handleClick }
+          >
+            Jogar
+          </button>
         </form>
       </div>
     );
