@@ -1,4 +1,9 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import fetchToken from '../services/index';
+import { loginAction } from '../actions';
 
 class Login extends React.Component {
   constructor(props) {
@@ -10,6 +15,7 @@ class Login extends React.Component {
 
     this.handleChange = this.handleChange.bind(this);
     this.verifyGameLogin = this.verifyGameLogin.bind(this);
+    this.handleClick = this.handleClick.bind(this);
   }
 
   handleChange({ target: { name, value } }) {
@@ -19,6 +25,15 @@ class Login extends React.Component {
   verifyGameLogin() {
     const { name, email } = this.state;
     return !(name && email);
+  }
+
+  async handleClick() {
+    const { dispatchToken } = this.props;
+    const token = await fetchToken();
+    console.log(token.token);
+    localStorage.setItem('token', token.token);
+    /* const localToken = localStorage.getItem('token'); */
+    dispatchToken(token.token);
   }
 
   render() {
@@ -40,17 +55,28 @@ class Login extends React.Component {
             placeholder="Seu Email"
             onChange={ this.handleChange }
           />
-          <button
-            type="button"
-            data-testid="btn-play"
-            disabled={ this.verifyGameLogin() }
-          >
-            Jogar
-          </button>
+          <Link to="/game">
+            <button
+              type="button"
+              data-testid="btn-play"
+              disabled={ this.verifyGameLogin() }
+              onClick={ this.handleClick }
+            >
+              Jogar
+            </button>
+          </Link>
         </form>
       </div>
     );
   }
 }
 
-export default Login;
+Login.propTypes = {
+  dispatchToken: PropTypes.func.isRequired,
+};
+
+const mapDispatchToProps = (dispatch) => ({
+  dispatchToken: (token) => dispatch(loginAction(token)),
+});
+
+export default connect(null, mapDispatchToProps)(Login);
