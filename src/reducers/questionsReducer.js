@@ -5,7 +5,7 @@ const INITIAL_STATE = {
 };
 
 const questionsReducer = (state = INITIAL_STATE, action) => {
-  switch (action.payload) {
+  switch (action.type) {
   case REQUEST_QUESTIONS:
     return {
       ...state,
