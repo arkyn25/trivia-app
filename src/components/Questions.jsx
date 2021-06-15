@@ -9,16 +9,11 @@ class Questions extends Component {
     super();
 
     this.multipleQuestion = this.multipleQuestion.bind(this);
-  }
-
-  async componentDidMount() {
-    const { token, dispatchQuestions } = this.props;
-    const response = await fetchQuestion(token);
-    const questions = response.results;
-    dispatchQuestions(questions);
+    this.renderGamePage = this.renderGamePage.bind(this);
   }
 
   multipleQuestion(param) {
+    console.log(param);
     const { category, question, correct_answer, incorrect_answers } = param;
     return (
       <div>
@@ -26,10 +21,26 @@ class Questions extends Component {
         <p data-testid="question-text">
           { question }
         </p>
-        <li data-testid="question-text">{ correct_answer }</li>
-        {incorrect_answers.map((item, index) => <li key={ index }>{ item }</li>)}
+        <button type="button" data-testid="correct-answer">{ correct_answer }</button>
+        { incorrect_answers.forEach((item, index) => (
+          <button
+            type="button"
+            data-testid={ `wrong-answer-${index}` }
+            key={ index }
+          >
+            { item }
+          </button>
+        ))}
       </div>
     );
+  }
+
+  async renderGamePage() {
+    const { token, dispatchQuestions } = this.props;
+    const response = await fetchQuestion(token);
+    const questions = response.results;
+    dispatchQuestions(questions);
+    this.multipleQuestion(questions[0]);
   }
 
   render() {
@@ -37,7 +48,7 @@ class Questions extends Component {
     console.log(questions[0]);
     return (
       <main>
-        {/* { this.multipleQuestion(questions[0])} */}
+        {this.renderGamePage()}
       </main>
     );
   }
