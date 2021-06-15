@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { fetchQuestion } from '../services';
 import { questionAction } from '../actions';
 
 class Questions extends Component {
@@ -9,20 +8,26 @@ class Questions extends Component {
     super();
 
     this.multipleQuestion = this.multipleQuestion.bind(this);
-    this.renderGamePage = this.renderGamePage.bind(this);
+  }
+
+  componentDidMount() {
+    const { token, dispatchQuestions } = this.props;
+    dispatchQuestions(token);
   }
 
   multipleQuestion(param) {
-    console.log(param);
-    const { category, question, correct_answer, incorrect_answers } = param;
+    const { category,
+      question,
+      correct_answer: correctAnswer,
+      incorrect_answers: incorrectAnswers } = param;
     return (
       <div>
-        <h6 data-testid="question-category">{ category }</h6>
+        <h3 data-testid="question-category">{ category }</h3>
         <p data-testid="question-text">
           { question }
         </p>
-        <button type="button" data-testid="correct-answer">{ correct_answer }</button>
-        { incorrect_answers.forEach((item, index) => (
+        <button type="button" data-testid="correct-answer">{ correctAnswer }</button>
+        { incorrectAnswers.map((item, index) => (
           <button
             type="button"
             data-testid={ `wrong-answer-${index}` }
@@ -35,20 +40,12 @@ class Questions extends Component {
     );
   }
 
-  async renderGamePage() {
-    const { token, dispatchQuestions } = this.props;
-    const response = await fetchQuestion(token);
-    const questions = response.results;
-    dispatchQuestions(questions);
-    this.multipleQuestion(questions[0]);
-  }
-
   render() {
     const { questions } = this.props;
     console.log(questions[0]);
     return (
       <main>
-        {this.renderGamePage()}
+        { questions.length > 0 ? this.multipleQuestion(questions[0]) : null}
       </main>
     );
   }
@@ -66,6 +63,7 @@ const mapDispatchToProps = (dispatch) => ({
 Questions.propTypes = {
   token: PropTypes.string.isRequired,
   dispatchQuestions: PropTypes.func.isRequired,
+  questions: PropTypes.arrayOf(Object).isRequired,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Questions);
