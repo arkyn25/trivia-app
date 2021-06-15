@@ -1,7 +1,8 @@
-import { REQUEST_TOKEN } from '../actions';
+import { REQUEST_TOKEN, REQUEST_EMAIL } from '../actions';
 
 const INITIAL_STATE = {
   token: '',
+  email: '',
 };
 
 const loginReducer = (state = INITIAL_STATE, action) => {
@@ -10,6 +11,11 @@ const loginReducer = (state = INITIAL_STATE, action) => {
     return {
       ...state,
       token: action.token,
+    };
+  case REQUEST_EMAIL:
+    return {
+      ...state,
+      email: action.email,
     };
   default:
     return state;
