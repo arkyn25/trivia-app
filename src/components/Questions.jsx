@@ -2,12 +2,16 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { questionAction } from '../actions';
+import './Questions.css';
 
 class Questions extends Component {
   constructor() {
     super();
-
+    this.state = {
+      active: false,
+    };
     this.multipleQuestion = this.multipleQuestion.bind(this);
+    this.handleClick = this.handleClick.bind(this);
   }
 
   componentDidMount() {
@@ -15,20 +19,32 @@ class Questions extends Component {
     dispatchQuestions(token);
   }
 
+  handleClick() {
+    this.setState({ active: true });
+  }
+
   multipleQuestion(param) {
     const { category,
       question,
       correct_answer: correctAnswer,
       incorrect_answers: incorrectAnswers } = param;
+    const { active } = this.state;
     return (
       <div>
         <h3 data-testid="question-category">{ category }</h3>
-        <p data-testid="question-text">
-          { question }
-        </p>
-        <button type="button" data-testid="correct-answer">{ correctAnswer }</button>
+        <p data-testid="question-text">{ question }</p>
+        <button
+          onClick={ this.handleClick }
+          className={ active ? 'acertou' : null }
+          type="button"
+          data-testid="correct-answer"
+        >
+          { correctAnswer }
+        </button>
         { incorrectAnswers.map((item, index) => (
           <button
+            onClick={ this.handleClick }
+            className={ active ? 'errou' : null }
             type="button"
             data-testid={ `wrong-answer-${index}` }
             key={ index }
