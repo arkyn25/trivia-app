@@ -12,6 +12,7 @@ class Login extends React.Component {
       name: '',
       email: '',
       redirect: false,
+      settings: false,
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -39,8 +40,9 @@ class Login extends React.Component {
   }
 
   render() {
-    const { name, email, redirect } = this.state;
+    const { name, email, redirect, settings } = this.state;
     if (redirect) return <Redirect to="/game" />;
+    if (settings) return <Redirect to="/settings" />;
     return (
       <div>
         <form>
@@ -65,6 +67,13 @@ class Login extends React.Component {
             onClick={ this.handleClick }
           >
             Jogar
+          </button>
+          <button
+            data-testid="btn-settings"
+            type="button"
+            onClick={ () => this.setState({ settings: true }) }
+          >
+            Settings
           </button>
         </form>
       </div>
