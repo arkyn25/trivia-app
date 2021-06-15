@@ -17,6 +17,7 @@ export const questionAction = (token) => async (dispatch) => {
     type: REQUEST_QUESTIONS, questions,
   });
 };
+
 export const emailAction = (email) => ({
   type: REQUEST_EMAIL, email,
 });
