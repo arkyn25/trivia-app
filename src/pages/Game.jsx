@@ -1,23 +1,27 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import Questions from '../components/Questions';
 
 class Game extends Component {
   render() {
     const { getNome, getMd5 } = this.props;
     const url = `https://www.gravatar.com/avatar/${getMd5}`;
     return (
-      <header>
-        <img
-          data-testid="header-profile-picture"
-          src={ url }
-          alt="ls"
-        />
-        <p data-testid="header-player-name">
-          { getNome }
-        </p>
-        <p data-testid="header-score">0</p>
-      </header>
+      <div>
+        <header>
+          <img
+            data-testid="header-profile-picture"
+            src={ url }
+            alt="ls"
+          />
+          <p data-testid="header-player-name">
+            { getNome }
+          </p>
+          <p data-testid="header-score">0</p>
+        </header>
+        <Questions />
+      </div>
     );
   }
 }

@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import md5 from 'crypto-js/md5';
 import fetchToken from '../services/index';
-import { loginAction, emailAction, md5Action, nomeAction } from '../actions';
+import { loginAction, emailAction, md5Action, nomeAction } from '../actions/index';
 
 class Login extends React.Component {
   constructor(props) {
