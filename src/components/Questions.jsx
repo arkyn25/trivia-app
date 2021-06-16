@@ -124,7 +124,6 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 Questions.propTypes = {
-  history: PropTypes.shape(Object).isRequired,
   token: PropTypes.string.isRequired,
   dispatchQuestions: PropTypes.func.isRequired,
   questions: PropTypes.arrayOf(Object).isRequired,
