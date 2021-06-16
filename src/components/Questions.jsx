@@ -11,9 +11,11 @@ class Questions extends Component {
       active: false,
       seconds: 30,
       buttonsDisabled: false,
+      questionIndex: 0,
     };
     this.multipleQuestion = this.multipleQuestion.bind(this);
     this.handleClick = this.handleClick.bind(this);
+    this.nextQuestion = this.nextQuestion.bind(this);
   }
 
   componentDidMount() {
@@ -35,6 +37,14 @@ class Questions extends Component {
 
   handleClick() {
     this.setState({ active: true });
+  }
+
+  nextQuestion() {
+    this.setState((state) => ({
+      questionIndex: state.questionIndex + 1,
+      seconds: 30,
+      active: false,
+    }));
   }
 
   multipleQuestion(param) {
@@ -73,12 +83,28 @@ class Questions extends Component {
     );
   }
 
+  renderNextButton() {
+    return (
+      <button
+        type="button"
+        data-testid="btn-next"
+        onClick={ () => this.nextQuestion() }
+      >
+        Próxima
+      </button>
+    );
+  }
+
   render() {
     const { questions } = this.props;
+    const { questionIndex, active } = this.state;
     console.log(questions[0]);
     return (
       <main>
-        { questions.length > 0 ? this.multipleQuestion(questions[0]) : null}
+        <div>
+          { questions.length > 0 ? this.multipleQuestion(questions[questionIndex]) : null}
+        </div>
+        { active ? this.renderNextButton() : null }
       </main>
     );
   }
