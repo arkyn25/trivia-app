@@ -5,6 +5,8 @@ export const REQUEST_QUESTIONS = 'REQUEST_QUESTIONS';
 export const REQUEST_EMAIL = 'REQUEST_EMAIL';
 export const REQUEST_MD5 = 'REQUEST_MD5';
 export const REQUEST_NOME = 'REQUEST_NOME';
+export const REQUEST_SCORE = 'REQUEST_SCORE';
+export const REQUEST_PLAYER = 'REQUEST_PLAYER';
 
 export const loginAction = (token) => ({
   type: REQUEST_TOKEN, token,
@@ -28,4 +30,12 @@ export const md5Action = (md5) => ({
 
 export const nomeAction = (nome) => ({
   type: REQUEST_NOME, nome,
+});
+
+export const scoreAction = (score) => ({
+  type: REQUEST_SCORE, score,
+});
+
+export const playerAction = (player) => ({
+  type: REQUEST_PLAYER, player,
 });
