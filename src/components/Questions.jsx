@@ -28,7 +28,7 @@ class Questions extends Component {
       }
       if (seconds === 0) {
         this.setState({ buttonsDisabled: true });
-        setTimeout(() => {}, FIVE_SECONDS);
+        setTimeout(() => { this.setState({ active: true }); }, FIVE_SECONDS);
       }
     }, ONE_SECOND);
   }
