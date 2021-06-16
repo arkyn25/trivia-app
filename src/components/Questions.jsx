@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 import { questionAction } from '../actions';
 import './Questions.css';
 
@@ -98,11 +99,14 @@ class Questions extends Component {
   render() {
     const { questions } = this.props;
     const { questionIndex, active } = this.state;
+    const limit = 5;
+    if (questionIndex === limit) return <Redirect to="/feedback" />;
     console.log(questions[0]);
     return (
       <main>
         <div>
-          { questions.length > 0 ? this.multipleQuestion(questions[questionIndex]) : null}
+          { questions.length > 0 ? this.multipleQuestion(questions[questionIndex])
+            : null }
         </div>
         { active ? this.renderNextButton() : null }
       </main>
@@ -120,6 +124,7 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 Questions.propTypes = {
+  history: PropTypes.shape(Object).isRequired,
   token: PropTypes.string.isRequired,
   dispatchQuestions: PropTypes.func.isRequired,
   questions: PropTypes.arrayOf(Object).isRequired,
