@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { questionAction } from '../actions';
 import './Questions.css';
@@ -12,6 +13,7 @@ class Questions extends Component {
       seconds: 30,
       buttonsDisabled: false,
       questionIndex: 0,
+      redirect: false,
     };
     this.multipleQuestion = this.multipleQuestion.bind(this);
     this.handleClick = this.handleClick.bind(this);
@@ -35,16 +37,27 @@ class Questions extends Component {
     }, ONE_SECOND);
   }
 
+  componentWillUnmount() {
+    clearInterval(this.countdownInterval);
+  }
+
   handleClick() {
     this.setState({ active: true });
   }
 
   nextQuestion() {
-    this.setState((state) => ({
-      questionIndex: state.questionIndex + 1,
+    const { questions } = this.props;
+    const { questionIndex, redirect } = this.state;
+    console.log(questionIndex);
+    console.log(redirect);
+    if (questionIndex === questions.length - 1) {
+      this.setState({ redirect: true });
+    }
+    this.setState({
+      questionIndex: questionIndex + 1,
       seconds: 30,
       active: false,
-    }));
+    });
   }
 
   multipleQuestion(param) {
@@ -97,10 +110,11 @@ class Questions extends Component {
 
   render() {
     const { questions } = this.props;
-    const { questionIndex, active } = this.state;
-    console.log(questions[0]);
+    const { questionIndex, active, redirect } = this.state;
+    if (redirect) return <Redirect to="/feedback" />;
     return (
       <main>
+        {/* { redirect && (<Redirect to="/feedback" />)} */}
         <div>
           { questions.length > 0 ? this.multipleQuestion(questions[questionIndex]) : null}
         </div>
