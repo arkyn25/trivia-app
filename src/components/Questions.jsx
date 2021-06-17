@@ -85,11 +85,18 @@ class Questions extends Component {
   }
 
   nextQuestion() {
-    this.setState((state) => ({
-      questionIndex: state.questionIndex + 1,
+    const { questions } = this.props;
+    const { questionIndex, redirect } = this.state;
+    console.log(questionIndex);
+    console.log(redirect);
+    if (questionIndex === questions.length - 1) {
+      this.setState({ redirect: true });
+    }
+    this.setState({
+      questionIndex: questionIndex + 1,
       seconds: 30,
       active: false,
-    }));
+    });
   }
 
   multipleQuestion(param) {
@@ -152,6 +159,7 @@ class Questions extends Component {
     if (questionIndex === limit) return <Redirect to="/feedback" />;
     return (
       <main>
+        {/* { redirect && (<Redirect to="/feedback" />)} */}
         <div>
           { questions.length > 0 ? this.multipleQuestion(questions[questionIndex])
             : null }
