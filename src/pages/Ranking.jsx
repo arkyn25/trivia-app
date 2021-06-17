@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+
 import { Link } from 'react-router-dom';
 
 export default class Ranking extends Component {
@@ -9,6 +10,7 @@ export default class Ranking extends Component {
         <h1 data-testid="ranking-title">
           Ranking
         </h1>
+
         <Link
           data-testid="btn-go-home"
           to="/"
