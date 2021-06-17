@@ -5,7 +5,7 @@ import Questions from '../components/Questions';
 
 class Game extends Component {
   render() {
-    const { getNome, getMd5 } = this.props;
+    const { getNome, getMd5, score } = this.props;
     const url = `https://www.gravatar.com/avatar/${getMd5}`;
     return (
       <div>
@@ -18,7 +18,7 @@ class Game extends Component {
           <p data-testid="header-player-name">
             { getNome }
           </p>
-          <p data-testid="header-score">0</p>
+          <p data-testid="header-score">{ score }</p>
         </header>
         <Questions />
       </div>
@@ -29,11 +29,13 @@ class Game extends Component {
 Game.propTypes = {
   getNome: PropTypes.string.isRequired,
   getMd5: PropTypes.string.isRequired,
+  score: PropTypes.number.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   getNome: state.loginReducer.nome,
   getMd5: state.loginReducer.md5,
+  score: state.loginReducer.score,
 });
 
 export default connect(mapStateToProps)(Game);
