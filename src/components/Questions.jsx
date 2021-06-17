@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { Redirect } from 'react-router-dom';
 import { questionAction, scoreAction, playerAction } from '../actions';
 import './Questions.css';
 
@@ -147,11 +148,13 @@ class Questions extends Component {
   render() {
     const { questions } = this.props;
     const { questionIndex, active } = this.state;
-    /* console.log(questions[0]); */
+    const limit = 5;
+    if (questionIndex === limit) return <Redirect to="/feedback" />;
     return (
       <main>
         <div>
-          { questions.length > 0 ? this.multipleQuestion(questions[questionIndex]) : null}
+          { questions.length > 0 ? this.multipleQuestion(questions[questionIndex])
+            : null }
         </div>
         { active ? this.renderNextButton() : null }
       </main>

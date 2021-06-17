@@ -5,11 +5,17 @@ export const REQUEST_QUESTIONS = 'REQUEST_QUESTIONS';
 export const REQUEST_EMAIL = 'REQUEST_EMAIL';
 export const REQUEST_MD5 = 'REQUEST_MD5';
 export const REQUEST_NOME = 'REQUEST_NOME';
+export const ENVIA_DADOS_USUARIO = 'ENVIA_DADOS_USUARIO';
 export const REQUEST_SCORE = 'REQUEST_SCORE';
 export const REQUEST_PLAYER = 'REQUEST_PLAYER';
 
 export const loginAction = (token) => ({
   type: REQUEST_TOKEN, token,
+});
+
+export const enviaDadosUsuario = (payload) => ({
+  type: ENVIA_DADOS_USUARIO,
+  payload,
 });
 
 export const questionAction = (token) => async (dispatch) => {
