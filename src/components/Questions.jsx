@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
-import { questionAction } from '../actions';
 import { questionAction, scoreAction, playerAction } from '../actions';
 import './Questions.css';
 
