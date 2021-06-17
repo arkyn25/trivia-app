@@ -40,7 +40,7 @@ const BUTTON_PLAY_AGAIN_SELECTOR = '[data-testid="btn-play-again"]';
 
 
 // login
-/* 
+
 describe('1 - [TELA DE LOGIN] Crie a tela de login, onde a pessoa que joga deve preencher as informações para iniciar um jogo', () => {
   beforeEach(() => {
     cy.visit('http://localhost:3000/');
@@ -545,7 +545,7 @@ describe('15 - [TELA DE FEEDBACK] Crie a opção para a pessoa jogadora poder jo
     cy.get(INPUT_PLAYER_EMAIL_SELECTOR).should('exist');
   });
 });
- */
+
 describe('16 - [TELA DE FEEDBACK] Crie a opção para a pessoa jogadora poder visualizar a tela de _ranking_', () => {
   beforeEach(() => {
     cy.visit('http://localhost:3000/');
