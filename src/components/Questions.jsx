@@ -13,12 +13,13 @@ class Questions extends Component {
       buttonsDisabled: false,
       questionIndex: 0,
       difficuldade: 0,
-      acertos: 1,
+      acertos: 0,
     };
     this.multipleQuestion = this.multipleQuestion.bind(this);
     this.handleClick = this.handleClick.bind(this);
     this.nextQuestion = this.nextQuestion.bind(this);
     this.funDificuldade = this.funDificuldade.bind(this);
+    this.ranking = this.ranking.bind(this);
   }
 
   componentDidMount() {
@@ -36,6 +37,7 @@ class Questions extends Component {
         setTimeout(() => { this.setState({ active: true }); }, FIVE_SECONDS);
       }
     }, ONE_SECOND);
+    this.ranking();
   }
 
   funDificuldade() {
@@ -50,31 +52,35 @@ class Questions extends Component {
     }
   }
 
-  handleClick(e) {
-    const { nomeState, tokenState,
-      dispatchScore, scoreState, dispatchPlayer } = this.props;
+  ranking() {
+    const { nomeState, tokenState, scoreState, dispatchPlayer } = this.props;
+    const { acertos } = this.state;
+    const player = {
+      player: {
+        name: nomeState,
+        assertions: acertos,
+        score: scoreState,
+        gravatarEmail: `https://www.gravatar.com/avatar/${tokenState}`,
+      },
+    };
+    dispatchPlayer(player);
+    const playerObj = JSON.stringify(player);
+    localStorage.setItem('state', playerObj);
+  }
+
+  async handleClick(e) {
+    const { dispatchScore, scoreState } = this.props;
     const { seconds, difficuldade, acertos } = this.state;
     const acertou = e.target.value;
     this.funDificuldade();
     const SOMA_ACE = 10;
     const resul = scoreState + SOMA_ACE + (seconds * difficuldade);
     if (acertou === 'acertou') {
-      console.log(acertos);
-      dispatchScore(resul);
-      const player = {
-        player: {
-          name: nomeState,
-          assertions: acertos,
-          score: resul,
-          gravatarEmail: `https://www.gravatar.com/avatar/${tokenState}`,
-        },
-      };
-      dispatchPlayer(player);
+      await dispatchScore(resul);
       this.setState({ acertos: acertos + 1 });
-      const playerObj = JSON.stringify(player);
-      localStorage.setItem('player', playerObj);
     }
     this.setState({ active: true });
+    this.ranking();
   }
 
   nextQuestion() {
@@ -97,7 +103,10 @@ class Questions extends Component {
         <p data-testid="question-text">{ question }</p>
         <button
           value="acertou"
-          onClick={ this.handleClick }
+          onClick={
+            this.handleClick
+            /* this.ranking(); */
+          }
           className={ active ? 'acertou' : null }
           type="button"
           data-testid="correct-answer"
