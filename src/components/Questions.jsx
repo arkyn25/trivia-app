@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
-import { questionAction, scoreAction, playerAction } from '../actions';
+import { questionAction, scoreAction, assertionAction } from '../actions';
 import './Questions.css';
 
 class Questions extends Component {
@@ -54,7 +54,7 @@ class Questions extends Component {
   }
 
   ranking() {
-    const { nomeState, tokenState, scoreState, dispatchPlayer } = this.props;
+    const { nomeState, tokenState, scoreState, dispatchAssertion } = this.props;
     const { acertos } = this.state;
     const player = {
       player: {
@@ -64,7 +64,7 @@ class Questions extends Component {
         gravatarEmail: `https://www.gravatar.com/avatar/${tokenState}`,
       },
     };
-    dispatchPlayer(player);
+    dispatchAssertion(acertos);
     const playerObj = JSON.stringify(player);
     localStorage.setItem('state', playerObj);
   }
@@ -174,14 +174,14 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   dispatchQuestions: (questions) => dispatch(questionAction(questions)),
   dispatchScore: (score) => dispatch(scoreAction(score)),
-  dispatchPlayer: (score) => dispatch(playerAction(score)),
+  dispatchAssertion: (score) => dispatch(assertionAction(score)),
 });
 
 Questions.propTypes = {
   token: PropTypes.string.isRequired,
   dispatchQuestions: PropTypes.func.isRequired,
   dispatchScore: PropTypes.func.isRequired,
-  dispatchPlayer: PropTypes.func.isRequired,
+  dispatchAssertion: PropTypes.func.isRequired,
   questions: PropTypes.arrayOf(Object).isRequired,
   scoreState: PropTypes.number.isRequired,
   nomeState: PropTypes.string.isRequired,

@@ -14,11 +14,9 @@ class FeedBackHeader extends React.Component {
           alt="avatar do usuário"
         />
         <p data-testid="header-player-name">
-          Usuário:
           {getNome}
         </p>
         <h2 data-testid="header-score">
-          Placar:
           {score}
         </h2>
       </header>
@@ -29,6 +27,7 @@ class FeedBackHeader extends React.Component {
 const mapStateToProps = (state) => ({
   getNome: state.loginReducer.nome,
   getMd5: state.loginReducer.getMd5,
+  score: state.loginReducer.score,
 });
 
 FeedBackHeader.propTypes = {

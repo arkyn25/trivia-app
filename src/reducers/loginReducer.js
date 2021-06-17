@@ -1,7 +1,7 @@
 import {
   REQUEST_TOKEN,
   REQUEST_EMAIL,
-  REQUEST_MD5, REQUEST_NOME, REQUEST_SCORE, REQUEST_PLAYER } from '../actions';
+  REQUEST_MD5, REQUEST_NOME, REQUEST_SCORE, REQUEST_ASSERTIONS } from '../actions';
 
 const INITIAL_STATE = {
   token: '',
@@ -9,12 +9,7 @@ const INITIAL_STATE = {
   md5: '',
   nome: '',
   score: 0,
-  player: {
-    name: '',
-    assertions: 0,
-    score: 0,
-    gravatarEmail: '',
-  },
+  assertions: 0,
 };
 
 const loginReducer = (state = INITIAL_STATE, action) => {
@@ -44,10 +39,10 @@ const loginReducer = (state = INITIAL_STATE, action) => {
       ...state,
       score: action.score,
     };
-  case REQUEST_PLAYER:
+  case REQUEST_ASSERTIONS:
     return {
       ...state,
-      player: action.player,
+      assertions: action.assertions,
     };
   default:
     return state;
