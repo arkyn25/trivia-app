@@ -10,7 +10,7 @@ class Game extends Component {
     const rem = 8;
     return (
       <div className="login">
-        <header className="card" style={ { width: `${rem}rem` } }>
+        <header className="card p-2 bd-highlight" style={ { width: `${rem}rem` } }>
           <img
             data-testid="header-profile-picture"
             className="card-img-top"
@@ -24,7 +24,7 @@ class Game extends Component {
             <p className="card-text" data-testid="header-score">{ score }</p>
           </div>
         </header>
-        <div className="questions">
+        <div className="questions p-2 flex-grow-1 bd-highlight">
           <Questions />
         </div>
       </div>
