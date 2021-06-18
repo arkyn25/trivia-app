@@ -160,12 +160,14 @@ class Questions extends Component {
     if (questionIndex === limit) return <Redirect to="/feedback" />;
     return (
       <main>
-        {/* { redirect && (<Redirect to="/feedback" />)} */}
-        <div>
-          { questions.length > 0 ? this.multipleQuestion(questions[questionIndex])
-            : null }
+        <div id="login-box" className="login-box col-md-12">
+          {/* { redirect && (<Redirect to="/feedback" />)} */}
+          <div>
+            { questions.length > 0 ? this.multipleQuestion(questions[questionIndex])
+              : null }
+          </div>
+          { active ? this.renderNextButton() : null }
         </div>
-        { active ? this.renderNextButton() : null }
       </main>
     );
   }

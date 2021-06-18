@@ -20,15 +20,7 @@ class Game extends Component {
           </p>
           <p data-testid="header-score">{ score }</p>
         </header>
-        <div className="container">
-          <div id="login-row" className="row justify-content-center align-items-center">
-            <div id="login-column" classNaeme="col-md-6">
-              <div id="login-box" className="col-md-12">
-                <Questions />
-              </div>
-            </div>
-          </div>
-        </div>
+        <Questions />
       </div>
     );
   }

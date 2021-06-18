@@ -56,7 +56,8 @@ class Login extends React.Component {
   renderForm() {
     const { name, email } = this.state;
     return (
-      <form id="login-form" className="form">
+      <form className="login-form form">
+        <h3 className="text-center text-black pt-5">Login</h3>
         <div className="form-group">
           <input
             data-testid="input-player-name"
@@ -83,7 +84,7 @@ class Login extends React.Component {
             data-testid="btn-play"
             disabled={ this.verifyGameLogin() }
             onClick={ this.handleClick }
-            className="btn btn-info btn-md"
+            className="button btn btn-info btn-md"
           >
             Jogar
           </button>
@@ -91,7 +92,7 @@ class Login extends React.Component {
             data-testid="btn-settings"
             type="button"
             onClick={ () => this.setState({ settings: true }) }
-            className="btn btn-info btn-md"
+            className="button btn btn-info btn-md"
           >
             Settings
           </button>
@@ -108,9 +109,9 @@ class Login extends React.Component {
       <div id="login">
         <h3 className="text-center text-white pt-5">Trivia Trybe</h3>
         <div className="container">
-          <div id="login-row" className="row justify-content-center align-items-center">
-            <div id="login-column" classNaeme="col-md-6">
-              <div id="login-box" className="col-md-12">
+          <div className="login-row row justify-content-center align-items-center">
+            <div className="login-column col-md-6">
+              <div className="login-box col-md-12">
                 {this.renderForm()}
               </div>
             </div>
