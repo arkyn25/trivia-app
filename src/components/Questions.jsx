@@ -116,7 +116,7 @@ class Questions extends Component {
             this.handleClick
             /* this.ranking(); */
           }
-          className={ active ? 'acertou' : null }
+          className={ active ? 'acertou btn btn-info btn-md' : 'btn btn-info btn-md' }
           type="button"
           data-testid="correct-answer"
           disabled={ buttonsDisabled }
@@ -127,7 +127,7 @@ class Questions extends Component {
           <button
             value="errou"
             onClick={ this.handleClick }
-            className={ active ? 'errou' : null }
+            className={ active ? 'errou btn btn-info btn-md' : 'btn btn-info btn-md' }
             type="button"
             data-testid={ `wrong-answer-${index}` }
             key={ index }

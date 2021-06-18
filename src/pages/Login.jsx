@@ -7,6 +7,8 @@ import fetchToken from '../services/index';
 import { loginAction,
   emailAction, scoreAction, md5Action, nomeAction } from '../actions/index';
 
+import './Login.css';
+
 class Login extends React.Component {
   constructor(props) {
     super(props);
@@ -20,6 +22,7 @@ class Login extends React.Component {
     this.handleChange = this.handleChange.bind(this);
     this.verifyGameLogin = this.verifyGameLogin.bind(this);
     this.handleClick = this.handleClick.bind(this);
+    this.renderForm = this.renderForm.bind(this);
   }
 
   componentDidMount() {
@@ -50,32 +53,37 @@ class Login extends React.Component {
     this.setState({ redirect: true });
   }
 
-  render() {
-    const { name, email, redirect, settings } = this.state;
-    if (redirect) return <Redirect to="/game" />;
-    if (settings) return <Redirect to="/settings" />;
+  renderForm() {
+    const { name, email } = this.state;
     return (
-      <div>
-        <form>
+      <form id="login-form" className="form">
+        <div className="form-group">
           <input
             data-testid="input-player-name"
             name="name"
             value={ name }
             placeholder="Seu Nome"
             onChange={ this.handleChange }
+            className="form-control"
           />
+        </div>
+        <div className="form-group">
           <input
             data-testid="input-gravatar-email"
             name="email"
             value={ email }
             placeholder="Seu Email"
             onChange={ this.handleChange }
+            className="form-control"
           />
+        </div>
+        <div className="form-group">
           <button
             type="button"
             data-testid="btn-play"
             disabled={ this.verifyGameLogin() }
             onClick={ this.handleClick }
+            className="btn btn-info btn-md"
           >
             Jogar
           </button>
@@ -83,10 +91,31 @@ class Login extends React.Component {
             data-testid="btn-settings"
             type="button"
             onClick={ () => this.setState({ settings: true }) }
+            className="btn btn-info btn-md"
           >
             Settings
           </button>
-        </form>
+        </div>
+      </form>
+    );
+  }
+
+  render() {
+    const { redirect, settings } = this.state;
+    if (redirect) return <Redirect to="/game" />;
+    if (settings) return <Redirect to="/settings" />;
+    return (
+      <div id="login">
+        <h3 className="text-center text-white pt-5">Trivia Trybe</h3>
+        <div className="container">
+          <div id="login-row" className="row justify-content-center align-items-center">
+            <div id="login-column" classNaeme="col-md-6">
+              <div id="login-box" className="col-md-12">
+                {this.renderForm()}
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     );
   }
