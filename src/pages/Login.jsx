@@ -4,7 +4,8 @@ import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import md5 from 'crypto-js/md5';
 import fetchToken from '../services/index';
-import { loginAction, emailAction, md5Action, nomeAction } from '../actions/index';
+import { loginAction,
+  emailAction, scoreAction, md5Action, nomeAction } from '../actions/index';
 
 class Login extends React.Component {
   constructor(props) {
@@ -19,6 +20,11 @@ class Login extends React.Component {
     this.handleChange = this.handleChange.bind(this);
     this.verifyGameLogin = this.verifyGameLogin.bind(this);
     this.handleClick = this.handleClick.bind(this);
+  }
+
+  componentDidMount() {
+    const { dispatchScore } = this.props;
+    dispatchScore(0);
   }
 
   handleChange({ target: { name, value } }) {
@@ -91,6 +97,7 @@ Login.propTypes = {
   dispatchEmail: PropTypes.func.isRequired,
   dispatchMd5: PropTypes.func.isRequired,
   dispatchNome: PropTypes.func.isRequired,
+  dispatchScore: PropTypes.func.isRequired,
 };
 
 const mapDispatchToProps = (dispatch) => ({
@@ -98,6 +105,7 @@ const mapDispatchToProps = (dispatch) => ({
   dispatchEmail: (email) => dispatch(emailAction(email)),
   dispatchMd5: (email) => dispatch(md5Action(email)),
   dispatchNome: (nome) => dispatch(nomeAction(nome)),
+  dispatchScore: (score) => dispatch(scoreAction(score)),
 });
 
 export default connect(null, mapDispatchToProps)(Login);

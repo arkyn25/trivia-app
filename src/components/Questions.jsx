@@ -77,6 +77,7 @@ class Questions extends Component {
     const SOMA_ACE = 10;
     const resul = scoreState + SOMA_ACE + (seconds * difficuldade);
     if (acertou === 'acertou') {
+      console.log(resul);
       await dispatchScore(resul);
       this.setState({ acertos: acertos + 1 });
     }
