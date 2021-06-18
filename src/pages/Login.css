@@ -22,3 +22,14 @@ body {
 .button {
   margin-right: 10px;
 }
+
+.login {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 10px;
+  text-align: center;
+}
+
+.questions {
+  justify-content: center;
+}

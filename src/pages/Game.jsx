@@ -7,9 +7,9 @@ class Game extends Component {
   render() {
     const { getNome, getMd5, score } = this.props;
     const url = `https://www.gravatar.com/avatar/${getMd5}`;
-    const rem = 13;
+    const rem = 8;
     return (
-      <div id="login">
+      <div className="login">
         <header className="card" style={ { width: `${rem}rem` } }>
           <img
             data-testid="header-profile-picture"
@@ -24,7 +24,9 @@ class Game extends Component {
             <p className="card-text" data-testid="header-score">{ score }</p>
           </div>
         </header>
-        <Questions />
+        <div className="questions">
+          <Questions />
+        </div>
       </div>
     );
   }
