@@ -3,6 +3,7 @@ import { Link, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import FeedBackHeader from './FeedBackHeader';
+import './FeedBack.css';
 
 class Feedback extends React.Component {
   constructor(props) {
@@ -35,7 +36,7 @@ class Feedback extends React.Component {
     const assert = 3;
     if (rankingOn) return <Redirect to="/ranking" />;
     return (
-      <main>
+      <main className="feedback">
         <FeedBackHeader />
         <p data-testid="feedback-total-question">{ assertions }</p>
         <p data-testid="feedback-total-score">{ score }</p>

@@ -21,7 +21,10 @@ class Game extends Component {
             <p className="card-text" data-testid="header-player-name">
               { getNome }
             </p>
-            <p className="card-text" data-testid="header-score">{ score }</p>
+            <p className="card-text" data-testid="header-score">
+              Score:
+              { score }
+            </p>
           </div>
         </header>
         <div className="questions p-2 flex-grow-1 bd-highlight">
